@@ -1,6 +1,6 @@
 # 💾 [Prueba Técnica] Task Manager: Gestión de Tareas y Roles (Laravel 12 + Vue 3)
 
-Este proyecto es la implementación completa de un Sistema de Gestión de Tareas con Control de Acceso basado en Roles (RBAC), cumpliendo con todos los requisitos funcionales y de seguridad solicitados para la prueba técnica.
+Este proyecto es la implementación completa de un Sistema de Gestión de Tareas con Control de Acceso basado en Roles, cumpliendo con todos los requisitos funcionales y de seguridad solicitados para la prueba técnica.
 
 **Autor:** Leandro Fabian Martinez
 
@@ -13,7 +13,7 @@ Hemos optado por una arquitectura robusta y testeable, priorizando la **Separaci
 | Capa | Tecnología | Patrón Principal |
 | :--- | :--- | :--- |
 | **Backend** | Laravel 12 (API) | **C-S-R (Controller-Service-Repository)** para toda la lógica de negocio. |
-| **Seguridad** | Spatie/laravel-permission | Control granular de roles y permisos en BD y blindaje por FormRequests. |
+| **Seguridad** | Spatie/laravel-permission | Control de roles y permisos en BD y blindaje por FormRequests. |
 | **Frontend** | Vue 3 + Inertia.js + TypeScript | Patrón **API-Driven** (Axios) para mutaciones (CRUD) y **Router Inertia** para recargas parciales. |
 | **Estilos/UI** | Tailwind CSS / Shadcn-vue | Diseño modular, consistente y responsivo. |
 
@@ -36,7 +36,7 @@ Sigue estos pasos en tu terminal para clonar y levantar el proyecto:
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone YOUR_GITHUB_URL
+    git clone https://github.com/LeaFMtz/task-manager-app.git
     cd laravel-task-manager-app 
     ```
 
