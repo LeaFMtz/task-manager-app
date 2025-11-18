@@ -1,0 +1,89 @@
+### =======================================
+### PRUEBA 1: INICIAR SESIÓN (COMO EDITOR)
+### =======================================
+# Objetivo: Iniciar sesión y obtener la cookie de sesión.
+# El servidor (Breeze/Fortify) nos logueará
+# y nos enviará una 'laravel_session' cookie.
+# Esperamos: 204 No Content (o 200 OK, ambos son éxito).
+
+# @name loginEditor
+POST http://localhost:8000/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "editor@test.com",
+    "password": "password"
+}
+
+### =======================================
+### PRUEBA 2: OBTENER TAREAS (EDITOR)
+### =======================================
+# Objetivo: Probar GET /tasks (autenticado).
+# El REST Client enviará automáticamente la cookie de la Prueba 1.
+# El middleware 'auth' (de routes/web.php) verá la cookie y nos dejará pasar.
+# Esperamos: 200 OK y un JSON con las 2 tareas del editor.
+
+GET http://localhost:8000/tasks
+Accept: application/json
+
+
+### =======================================
+### PRUEBA 3: CREAR TAREA (EDITOR)
+### =======================================
+# Objetivo: Probar POST /tasks.
+# El StoreTaskRequest->authorize() debe pasar ('task-create').
+# Esperamos: 201 Created y el JSON de la nueva tarea.
+
+POST http://localhost:8000/tasks
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "¡Mi nueva tarea (L12)!",
+    "description": "Esto funciona.",
+    "status": "pending",
+    "due_date": "2025-11-20"
+}
+
+### =======================================
+### PRUEBA 4: LOGOUT
+### =======================================
+# Objetivo: Invalidar la sesión.
+# Esperamos: 204 No Content.
+
+POST http://localhost:8000/logout
+Accept: application/json
+
+### =======================================
+### PRUEBA 5: INICIAR SESIÓN (COMO VIEWER)
+### =======================================
+# Objetivo: Iniciar sesión como 'viewer' para probar permisos.
+# Esperamos: 204 No Content.
+
+# @name loginViewer
+POST http://localhost:8000/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "viewer@test.com",
+    "password": "password"
+}
+
+### =======================================
+### PRUEBA 6: FALLO - VIEWER INTENTA CREAR
+### =======================================
+# Objetivo: Probar que StoreTaskRequest->authorize() falla.
+# El 'viewer' NO tiene el permiso 'task-create'.
+# Esperamos: 403 Forbidden.
+
+POST http://localhost:8000/tasks
+Accept: application/json
+Content-Type: application/json
+
+{
+    "title": "Esta tarea NUNCA debería crearse",
+    "description": "El viewer no puede hacer esto.",
+    "status": "pending"
+}
